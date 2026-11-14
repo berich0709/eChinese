@@ -8,12 +8,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.echinese.core.LocalStrings
 import com.echinese.core.LocalTokens
 import com.echinese.domain.User
 
 @Composable
 fun GoalScreen(user: User, onDone: (level: String, examDate: String, minutes: Int) -> Unit) {
     val tokens = LocalTokens.current
+    val s = LocalStrings.current
     var level by remember { mutableStateOf(user.level) }
     var date by remember { mutableStateOf("2027-06-14") }
     var minutes by remember { mutableStateOf(20) }
@@ -22,12 +24,12 @@ fun GoalScreen(user: User, onDone: (level: String, examDate: String, minutes: In
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp)
     ) {
         Spacer(Modifier.height(24.dp))
-        Text("Target belajarmu", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+        Text(s.goalTitle, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(6.dp))
-        Text("Kami susun rencana harian sesuai target dan waktumu.", color = tokens.muted)
+        Text(s.goalSub, color = tokens.muted)
         Spacer(Modifier.height(24.dp))
 
-        Text("Level HSK", fontWeight = FontWeight.SemiBold)
+        Text(s.level, fontWeight = FontWeight.SemiBold)
         Spacer(Modifier.height(8.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             listOf("HSK1", "HSK2", "HSK3").forEach { l ->
@@ -36,13 +38,13 @@ fun GoalScreen(user: User, onDone: (level: String, examDate: String, minutes: In
         }
 
         Spacer(Modifier.height(20.dp))
-        Text("Tanggal ujian", fontWeight = FontWeight.SemiBold)
+        Text(s.examDate, fontWeight = FontWeight.SemiBold)
         Spacer(Modifier.height(8.dp))
         OutlinedTextField(date, { date = it }, singleLine = true,
             label = { Text("YYYY-MM-DD") }, modifier = Modifier.fillMaxWidth())
 
         Spacer(Modifier.height(20.dp))
-        Text("Belajar per hari", fontWeight = FontWeight.SemiBold)
+        Text(s.minutes, fontWeight = FontWeight.SemiBold)
         Spacer(Modifier.height(8.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             listOf(10, 20, 30).forEach { m ->
@@ -54,6 +56,6 @@ fun GoalScreen(user: User, onDone: (level: String, examDate: String, minutes: In
         Button(
             onClick = { onDone(level, date, minutes) },
             modifier = Modifier.fillMaxWidth().height(tokens.buttonHeight.dp)
-        ) { Text("Simpan & mulai") }
+        ) { Text(s.saveStart) }
     }
 }

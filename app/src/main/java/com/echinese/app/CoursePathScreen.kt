@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.echinese.core.LocalStrings
 import com.echinese.core.LocalTokens
 
 private enum class NodeState { DONE, CURRENT, LOCKED }
@@ -30,10 +31,11 @@ private val unit1 = listOf(
 @Composable
 fun CoursePathScreen() {
     val t = LocalTokens.current
+    val s = LocalStrings.current
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp)) {
-        Text("Jalur belajar", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+        Text(s.pathTitle, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(4.dp))
-        Text("HSK 2 · Dasar", color = t.muted)
+        Text(s.pathSub, color = t.muted)
         Spacer(Modifier.height(12.dp))
         LinearProgressIndicator(progress = { 0.42f }, modifier = Modifier.fillMaxWidth().height(8.dp))
         Spacer(Modifier.height(20.dp))
@@ -53,7 +55,7 @@ fun CoursePathScreen() {
         }
         Spacer(Modifier.height(16.dp))
         Button(onClick = {}, modifier = Modifier.fillMaxWidth().height(t.buttonHeight.dp)) {
-            Text("Lanjutkan belajar")
+            Text(s.startLearning)
         }
     }
 }
@@ -61,6 +63,7 @@ fun CoursePathScreen() {
 @Composable
 private fun LessonRow(lesson: Lesson, isLast: Boolean) {
     val t = LocalTokens.current
+    val s = LocalStrings.current
     Row(Modifier.fillMaxWidth()) {
         Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(44.dp)) {
             val bg = when (lesson.state) {
@@ -85,7 +88,7 @@ private fun LessonRow(lesson: Lesson, isLast: Boolean) {
                 color = if (lesson.state == NodeState.LOCKED) t.muted else t.ink
             )
             if (lesson.state == NodeState.CURRENT) {
-                Text("SEKARANG", color = t.brand, style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.Bold)
+                Text(s.now, color = t.brand, style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.Bold)
             } else if (lesson.sub.isNotEmpty()) {
                 Text(lesson.sub, color = t.muted, style = MaterialTheme.typography.labelSmall)
             }
