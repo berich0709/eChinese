@@ -17,6 +17,7 @@ data class DesignTokens(
     val line: Color,
     val success: Color,
     val danger: Color,
+    val gold: Color,
     val radius: Int = 16,
     val buttonHeight: Int = 50
 )
@@ -30,7 +31,8 @@ val DefaultTokens = DesignTokens(
     muted = Color(0xFF7C8A84),
     line = Color(0xFFE3EBE7),
     success = Color(0xFF2FA36B),
-    danger = Color(0xFFE5484D)
+    danger = Color(0xFFE5484D),
+    gold = Color(0xFFD4A72C)
 )
 
 val LocalTokens = staticCompositionLocalOf { DefaultTokens }

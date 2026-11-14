@@ -8,12 +8,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.echinese.core.Brand
 import com.echinese.core.BrandSoft
 import com.echinese.core.Lang
 import com.echinese.core.LocalStrings
+import com.echinese.core.LocalTokens
 import com.echinese.core.Muted
 import com.echinese.domain.DailyTask
 import com.echinese.domain.User
@@ -59,29 +61,53 @@ fun HomeScreen(user: User, onLogout: () -> Unit, onLang: (Lang) -> Unit) {
 @Composable
 private fun TodayTab() {
     val s = LocalStrings.current
+    val t = LocalTokens.current
     val tasks = listOf(
-        DailyTask("1", "Kosakata HSK2 · 10 kata", false, 0.2f),
-        DailyTask("2", "Ulangi 12 kata", false, 0f),
-        DailyTask("3", "Kuis mini · 10 soal", true, 1f)
+        DailyTask("1", "Kosakata makanan", false, 0.2f),
+        DailyTask("2", "Mendengarkan harga", false, 0f),
+        DailyTask("3", "Kuis mini", true, 1f)
     )
-    Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp)) {
-        Column(Modifier.padding(16.dp)) {
-            Text("🔥 4 " + s.streak, color = Brand, fontWeight = FontWeight.Bold)
+    Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(22.dp), colors = CardDefaults.cardColors(containerColor = t.brand)) {
+        Column(Modifier.padding(18.dp)) {
+            Text("TARGET HARI INI", color = Color.White.copy(alpha = .7f), style = MaterialTheme.typography.labelSmall)
             Spacer(Modifier.height(6.dp))
-            Text(s.target + ": HSK2 · 20 min", fontWeight = FontWeight.Bold)
-            Spacer(Modifier.height(4.dp))
-            Text(s.exam + ": 14 Jun 2027", color = Muted)
+            Row(verticalAlignment = Alignment.Bottom) {
+                Text("18", color = Color.White, style = MaterialTheme.typography.displaySmall, fontWeight = FontWeight.Bold)
+                Text(" / 20 min", color = Color.White.copy(alpha = .8f), modifier = Modifier.padding(bottom = 6.dp))
+                Spacer(Modifier.weight(1f))
+                Text("🔥 12", color = t.gold, fontWeight = FontWeight.Bold)
+            }
+            Spacer(Modifier.height(10.dp))
+            LinearProgressIndicator(progress = { 0.9f }, modifier = Modifier.fillMaxWidth().height(8.dp),
+                color = t.gold, trackColor = Color.White.copy(alpha = .25f))
+            Spacer(Modifier.height(10.dp))
+            Text("12 hari beruntun · Menuju HSK 2", color = Color.White.copy(alpha = .8f),
+                style = MaterialTheme.typography.labelSmall)
         }
     }
-    Spacer(Modifier.height(12.dp))
-    Text(s.todayPlan, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+    Spacer(Modifier.height(18.dp))
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(s.todayPlan, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+        Spacer(Modifier.weight(1f))
+        Text("2 dari 3 selesai", color = t.muted, style = MaterialTheme.typography.labelSmall)
+    }
     Spacer(Modifier.height(8.dp))
-    tasks.forEach { t -> TaskCard(t); Spacer(Modifier.height(10.dp)) }
+    tasks.forEach { task -> TaskCard(task); Spacer(Modifier.height(10.dp)) }
+    Spacer(Modifier.height(4.dp))
+    Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(14.dp), colors = CardDefaults.cardColors(containerColor = Color.White)) {
+        Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
+            Text("📅", modifier = Modifier.padding(end = 10.dp))
+            Column(Modifier.weight(1f)) {
+                Text("Ujian HSK 2 · 119 hari lagi", fontWeight = FontWeight.SemiBold)
+                Text("Persiapan ujian dimulai", color = t.muted, style = MaterialTheme.typography.labelSmall)
+            }
+        }
+    }
 }
 
 @Composable
 private fun TaskCard(t: DailyTask) {
-    Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(14.dp)) {
+    Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(14.dp), colors = CardDefaults.cardColors(containerColor = Color.White)) {
         Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
             Box(Modifier.size(44.dp), contentAlignment = Alignment.Center) {
                 Surface(color = BrandSoft, shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxSize()) {
@@ -99,14 +125,14 @@ private fun TaskCard(t: DailyTask) {
 
 @Composable
 private fun ProfileTab(user: User, onLogout: () -> Unit, onLang: (Lang) -> Unit, s: com.echinese.core.Strings) {
-    Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp)) {
+    Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp), colors = CardDefaults.cardColors(containerColor = Color.White)) {
         Column(Modifier.padding(16.dp)) {
             Text(user.name, fontWeight = FontWeight.Bold)
             Text(user.email, color = Muted)
         }
     }
     Spacer(Modifier.height(12.dp))
-    Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp)) {
+    Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp), colors = CardDefaults.cardColors(containerColor = Color.White)) {
         Column(Modifier.padding(16.dp)) {
             Text(s.langLabel, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(8.dp))
