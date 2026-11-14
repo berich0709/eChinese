@@ -26,6 +26,7 @@ import com.echinese.domain.User
 fun HomeScreen(user: User, onLogout: () -> Unit, onLang: (Lang) -> Unit) {
     val s = LocalStrings.current
     val tabs = listOf(s.tabToday to "☀", s.tabLearn to "📘", s.tabReview to "🔁", s.tabMe to "◐")
+    var screen by remember { mutableStateOf("home") }
     var tab by remember { mutableStateOf(0) }
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -49,7 +50,7 @@ fun HomeScreen(user: User, onLogout: () -> Unit, onLang: (Lang) -> Unit) {
             Spacer(Modifier.height(16.dp))
             when (tab) {
                 0 -> TodayTab()
-                1 -> CoursePathScreen()
+                1 -> CoursePathScreen(onContinue = { screen = "unit" })
                 2 -> Placeholder("🔁", "Ulangi", "Daftar ulangan akan tampil di sini.")
                 else -> ProfileTab(user, onLogout, onLang, s)
             }

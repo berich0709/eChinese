@@ -27,7 +27,7 @@ private val unit1 = listOf(
 )
 
 @Composable
-fun CoursePathScreen() {
+fun CoursePathScreen(onContinue: () -> Unit = {}) {
     val t = LocalTokens.current
     val s = LocalStrings.current
     Column(Modifier.fillMaxWidth()) {
@@ -52,7 +52,7 @@ fun CoursePathScreen() {
             }
         }
         Spacer(Modifier.height(16.dp))
-        Button(onClick = {}, modifier = Modifier.fillMaxWidth().height(t.buttonHeight.dp)) {
+        Button(onClick = onContinue, modifier = Modifier.fillMaxWidth().height(t.buttonHeight.dp)) {
             Text(s.startLearning)
         }
     }
