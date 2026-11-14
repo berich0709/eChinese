@@ -69,7 +69,7 @@ private fun TodayTab() {
     )
     Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(22.dp), colors = CardDefaults.cardColors(containerColor = t.brand)) {
         Column(Modifier.padding(18.dp)) {
-            Text("TARGET HARI INI", color = Color.White.copy(alpha = .7f), style = MaterialTheme.typography.labelSmall)
+            Text(s.targetToday, color = Color.White.copy(alpha = .7f), style = MaterialTheme.typography.labelSmall)
             Spacer(Modifier.height(6.dp))
             Row(verticalAlignment = Alignment.Bottom) {
                 Text("18", color = Color.White, style = MaterialTheme.typography.displaySmall, fontWeight = FontWeight.Bold)
@@ -81,7 +81,7 @@ private fun TodayTab() {
             LinearProgressIndicator(progress = { 0.9f }, modifier = Modifier.fillMaxWidth().height(8.dp),
                 color = t.gold, trackColor = Color.White.copy(alpha = .25f))
             Spacer(Modifier.height(10.dp))
-            Text("12 hari beruntun · Menuju HSK 2", color = Color.White.copy(alpha = .8f),
+            Text(s.streakLine, color = Color.White.copy(alpha = .8f),
                 style = MaterialTheme.typography.labelSmall)
         }
     }
@@ -89,7 +89,7 @@ private fun TodayTab() {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(s.todayPlan, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
         Spacer(Modifier.weight(1f))
-        Text("2 dari 3 selesai", color = t.muted, style = MaterialTheme.typography.labelSmall)
+        Text(s.tasksDone, color = t.muted, style = MaterialTheme.typography.labelSmall)
     }
     Spacer(Modifier.height(8.dp))
     tasks.forEach { task -> TaskCard(task); Spacer(Modifier.height(10.dp)) }
@@ -98,8 +98,8 @@ private fun TodayTab() {
         Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
             Text("📅", modifier = Modifier.padding(end = 10.dp))
             Column(Modifier.weight(1f)) {
-                Text("Ujian HSK 2 · 119 hari lagi", fontWeight = FontWeight.SemiBold)
-                Text("Persiapan ujian dimulai", color = t.muted, style = MaterialTheme.typography.labelSmall)
+                Text(s.examLine, fontWeight = FontWeight.SemiBold)
+                Text(s.examSub, color = t.muted, style = MaterialTheme.typography.labelSmall)
             }
         }
     }

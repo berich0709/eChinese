@@ -19,7 +19,9 @@ data class Strings(
     val logout: String, val langLabel: String, val profile: String,
     val goalTitle: String, val goalSub: String, val level: String, val examDate: String,
     val minutes: String, val saveStart: String,
-    val pathTitle: String, val pathSub: String, val startLearning: String, val now: String
+    val pathTitle: String, val pathSub: String, val startLearning: String, val now: String,
+    val targetToday: String, val streakLine: String, val tasksDone: String,
+    val examLine: String, val examSub: String
 )
 
 val ZhStrings = Strings(
@@ -37,7 +39,9 @@ val ZhStrings = Strings(
     logout = "退出登录", langLabel = "界面语言", profile = "我的",
     goalTitle = "设置学习目标", goalSub = "我们会根据目标和每日时间生成计划",
     level = "HSK 等级", examDate = "考试日期", minutes = "每日学习时长", saveStart = "保存并开始",
-    pathTitle = "学习路径", pathSub = "HSK 2 · 基础", startLearning = "继续学习", now = "当前"
+    pathTitle = "学习路径", pathSub = "HSK 2 · 基础", startLearning = "继续学习", now = "当前",
+    targetToday = "今日目标", streakLine = "连续 12 天 · 冲刺 HSK 2", tasksDone = "已完成 2/3",
+    examLine = "HSK 2 考试 · 还剩 119 天", examSub = "开始备考"
 )
 val EnStrings = ZhStrings.copy(
     loginTitle = "Welcome back", loginSub = "Sign in to continue your HSK study",
@@ -53,7 +57,9 @@ val EnStrings = ZhStrings.copy(
     logout = "Sign out", langLabel = "Language", profile = "Me",
     goalTitle = "Set your goal", goalSub = "We'll build a daily plan around your goal",
     level = "HSK level", examDate = "Exam date", minutes = "Daily study time", saveStart = "Save & start",
-    pathTitle = "Learning path", pathSub = "HSK 2 · Basic", startLearning = "Continue learning", now = "Now"
+    pathTitle = "Learning path", pathSub = "HSK 2 · Basic", startLearning = "Continue learning", now = "Now",
+    targetToday = "TODAY'S TARGET", streakLine = "12 day streak · Toward HSK 2", tasksDone = "2 of 3 done",
+    examLine = "HSK 2 exam · 119 days left", examSub = "Exam prep started"
 )
 val IdStrings = ZhStrings.copy(
     loginTitle = "Selamat datang", loginSub = "Masuk untuk melanjutkan belajar HSK",
@@ -69,7 +75,9 @@ val IdStrings = ZhStrings.copy(
     logout = "Keluar", langLabel = "Bahasa", profile = "Saya",
     goalTitle = "Atur target belajar", goalSub = "Kami susun rencana harian sesuai waktumu",
     level = "Level HSK", examDate = "Tanggal ujian", minutes = "Belajar per hari", saveStart = "Simpan & mulai",
-    pathTitle = "Jalur belajar", pathSub = "HSK 2 · Dasar", startLearning = "Lanjutkan belajar", now = "SEKARANG"
+    pathTitle = "Jalur belajar", pathSub = "HSK 2 · Dasar", startLearning = "Lanjutkan belajar", now = "SEKARANG",
+    targetToday = "TARGET HARI INI", streakLine = "12 hari beruntun · Menuju HSK 2", tasksDone = "2 dari 3 selesai",
+    examLine = "Ujian HSK 2 · 119 hari lagi", examSub = "Persiapan ujian dimulai"
 )
 
 fun stringsFor(lang: Lang) = when (lang) {
