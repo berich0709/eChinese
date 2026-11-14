@@ -18,9 +18,13 @@ class MainActivity : ComponentActivity() {
                 val ctx = LocalContext.current
                 val store = remember { SessionStore(ctx) }
                 var user by remember { mutableStateOf(store.user()) }
+                var showGoal by remember { mutableStateOf(user != null && !store.goalSet()) }
                 Surface(color = MaterialTheme.colorScheme.background) {
-                    if (user == null) AuthFlow(onLoggedIn = { store.save(it); user = it })
-                    else HomeScreen(user = user!!, onLogout = { store.clear(); user = null })
+                    if (user == null) AuthFlow(onLoggedIn = { u, isNew -> store.save(u); user = u; showGoal = isNew })
+                    else if (showGoal) GoalScreen(user = user!!) { lvl, date, mins ->
+                        store.saveGoal(lvl, date, mins); showGoal = false
+                    }
+                    else HomeScreen(user = user!!, onLogout = { store.clear(); user = null; showGoal = true })
                 }
             }
         }

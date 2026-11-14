@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 private enum class Mode { LOGIN, REGISTER, FORGOT }
 
 @Composable
-fun AuthFlow(onLoggedIn: (User) -> Unit) {
+fun AuthFlow(onLoggedIn: (User, Boolean) -> Unit) {
     var mode by remember { mutableStateOf(Mode.LOGIN) }
     val repo = remember { MockAuthRepository() }
     val scope = rememberCoroutineScope()
@@ -88,7 +88,7 @@ fun AuthFlow(onLoggedIn: (User) -> Unit) {
                 scope.launch {
                     when (mode) {
                         Mode.LOGIN -> repo.login(email.trim(), password)
-                            .onSuccess { onLoggedIn(it) }
+                            .onSuccess { onLoggedIn(it, false) }
                             .onFailure { e ->
                                 error = when (e.message) {
                                     "NO_USER" -> "Akun tidak ditemukan"
@@ -97,7 +97,7 @@ fun AuthFlow(onLoggedIn: (User) -> Unit) {
                                 }
                             }
                         Mode.REGISTER -> repo.register(name.trim(), email.trim(), password)
-                            .onSuccess { onLoggedIn(it) }
+                            .onSuccess { onLoggedIn(it, true) }
                             .onFailure { e ->
                                 error = if (e.message == "EMAIL_TAKEN") "Email sudah terdaftar" else "Gagal mendaftar"
                             }

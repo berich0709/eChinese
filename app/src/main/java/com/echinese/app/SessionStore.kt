@@ -20,5 +20,12 @@ class SessionStore(context: Context) {
         level = sp.getString("level", "HSK2") ?: "HSK2"
     ) else null
 
+    fun saveGoal(level: String, examDate: String, minutes: Int) {
+        sp.edit().putString("level", level).putString("exam_date", examDate)
+            .putInt("minutes", minutes).putBoolean("goal_set", true).apply()
+    }
+
+    fun goalSet() = sp.getBoolean("goal_set", false)
+
     fun clear() = sp.edit().clear().apply()
 }
