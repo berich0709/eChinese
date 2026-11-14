@@ -42,7 +42,7 @@ fun AuthFlow(onLoggedIn: (User, Boolean) -> Unit) {
     var loading by remember { mutableStateOf(false) }
 
     Column(
-        Modifier.fillMaxSize().background(t.bg).verticalScroll(rememberScrollState()).padding(24.dp),
+        Modifier.fillMaxSize().background(t.bg).verticalScroll(rememberScrollState()).padding(24.dp).statusBarsPadding(),
         verticalArrangement = Arrangement.Center
     ) {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {

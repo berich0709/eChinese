@@ -40,7 +40,7 @@ fun HomeScreen(user: User, onLogout: () -> Unit, onLang: (Lang) -> Unit) {
             }
         }
     ) { pad ->
-        Column(Modifier.padding(pad).padding(horizontal = 20.dp).verticalScroll(rememberScrollState())) {
+        Column(Modifier.padding(pad).padding(horizontal = 20.dp).verticalScroll(rememberScrollState()).statusBarsPadding()) {
             Spacer(Modifier.height(16.dp))
             Text(s.hello + ",", color = Muted)
             Text(user.name, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)

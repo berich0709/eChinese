@@ -21,7 +21,7 @@ fun GoalScreen(user: User, onDone: (level: String, examDate: String, minutes: In
     var minutes by remember { mutableStateOf(20) }
 
     Column(
-        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp)
+        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp).statusBarsPadding()
     ) {
         Spacer(Modifier.height(24.dp))
         Text(s.goalTitle, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
