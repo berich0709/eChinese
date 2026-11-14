@@ -43,7 +43,7 @@ fun HomeScreen(user: User, onLogout: () -> Unit) {
             Spacer(Modifier.height(16.dp))
             when (tab) {
                 0 -> TodayTab()
-                1 -> Placeholder("📘", "Belajar", "Daftar unit akan tampil di sini.")
+                1 -> CoursePathScreen()
                 2 -> Placeholder("🔁", "Ulangi", "Daftar ulangan akan tampil di sini.")
                 else -> ProfileTab(user, onLogout)
             }
