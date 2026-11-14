@@ -27,5 +27,8 @@ class SessionStore(context: Context) {
 
     fun goalSet() = sp.getBoolean("goal_set", false)
 
+    fun lang(): String = sp.getString("lang", "zh") ?: "zh"
+    fun setLang(code: String) = sp.edit().putString("lang", code).apply()
+
     fun clear() = sp.edit().clear().apply()
 }

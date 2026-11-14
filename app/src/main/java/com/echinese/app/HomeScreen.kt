@@ -12,14 +12,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.echinese.core.Brand
 import com.echinese.core.BrandSoft
+import com.echinese.core.Lang
+import com.echinese.core.LocalStrings
 import com.echinese.core.Muted
 import com.echinese.domain.DailyTask
 import com.echinese.domain.User
 
-private val tabs = listOf("今天" to "☀", "学习" to "📘", "复习" to "🔁", "我的" to "◐")
+
 
 @Composable
-fun HomeScreen(user: User, onLogout: () -> Unit) {
+fun HomeScreen(user: User, onLogout: () -> Unit, onLang: (Lang) -> Unit) {
+    val s = LocalStrings.current
+    val tabs = listOf(s.tabToday to "☀", s.tabLearn to "📘", s.tabReview to "🔁", s.tabMe to "◐")
     var tab by remember { mutableStateOf(0) }
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -38,14 +42,14 @@ fun HomeScreen(user: User, onLogout: () -> Unit) {
     ) { pad ->
         Column(Modifier.padding(pad).padding(horizontal = 20.dp).verticalScroll(rememberScrollState())) {
             Spacer(Modifier.height(16.dp))
-            Text("Halo,", color = Muted)
+            Text(s.hello + ",", color = Muted)
             Text(user.name, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
             Spacer(Modifier.height(16.dp))
             when (tab) {
                 0 -> TodayTab()
                 1 -> CoursePathScreen()
                 2 -> Placeholder("🔁", "Ulangi", "Daftar ulangan akan tampil di sini.")
-                else -> ProfileTab(user, onLogout)
+                else -> ProfileTab(user, onLogout, onLang, s)
             }
             Spacer(Modifier.height(24.dp))
         }
@@ -54,6 +58,7 @@ fun HomeScreen(user: User, onLogout: () -> Unit) {
 
 @Composable
 private fun TodayTab() {
+    val s = LocalStrings.current
     val tasks = listOf(
         DailyTask("1", "Kosakata HSK2 · 10 kata", false, 0.2f),
         DailyTask("2", "Ulangi 12 kata", false, 0f),
@@ -61,15 +66,15 @@ private fun TodayTab() {
     )
     Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp)) {
         Column(Modifier.padding(16.dp)) {
-            Text("🔥 4 hari beruntun", color = Brand, fontWeight = FontWeight.Bold)
+            Text("🔥 4 " + s.streak, color = Brand, fontWeight = FontWeight.Bold)
             Spacer(Modifier.height(6.dp))
-            Text("Target: HSK2 · 20 menit", fontWeight = FontWeight.Bold)
+            Text(s.target + ": HSK2 · 20 min", fontWeight = FontWeight.Bold)
             Spacer(Modifier.height(4.dp))
-            Text("Ujian: 14 Jun 2027", color = Muted)
+            Text(s.exam + ": 14 Jun 2027", color = Muted)
         }
     }
     Spacer(Modifier.height(12.dp))
-    Text("Rencana hari ini", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+    Text(s.todayPlan, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
     Spacer(Modifier.height(8.dp))
     tasks.forEach { t -> TaskCard(t); Spacer(Modifier.height(10.dp)) }
 }
@@ -93,7 +98,7 @@ private fun TaskCard(t: DailyTask) {
 }
 
 @Composable
-private fun ProfileTab(user: User, onLogout: () -> Unit) {
+private fun ProfileTab(user: User, onLogout: () -> Unit, onLang: (Lang) -> Unit, s: com.echinese.core.Strings) {
     Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp)) {
         Column(Modifier.padding(16.dp)) {
             Text(user.name, fontWeight = FontWeight.Bold)
@@ -103,16 +108,17 @@ private fun ProfileTab(user: User, onLogout: () -> Unit) {
     Spacer(Modifier.height(12.dp))
     Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp)) {
         Column(Modifier.padding(16.dp)) {
-            Text("Bahasa antarmuka", fontWeight = FontWeight.SemiBold)
+            Text(s.langLabel, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(8.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                AssistChip(onClick = {}, label = { Text("Bahasa Indonesia") })
-                AssistChip(onClick = {}, label = { Text("中文") })
+                AssistChip(onClick = { onLang(Lang.ID) }, label = { Text("Bahasa Indonesia") })
+                AssistChip(onClick = { onLang(Lang.EN) }, label = { Text("English") })
+                AssistChip(onClick = { onLang(Lang.ZH) }, label = { Text("中文") })
             }
         }
     }
     Spacer(Modifier.height(16.dp))
-    OutlinedButton(onClick = onLogout, modifier = Modifier.fillMaxWidth()) { Text("Keluar") }
+    OutlinedButton(onClick = onLogout, modifier = Modifier.fillMaxWidth()) { Text(s.logout) }
 }
 
 @Composable
