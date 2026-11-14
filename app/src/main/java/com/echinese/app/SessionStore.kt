@@ -1,4 +1,4 @@
-package com.echinese.core
+package com.echinese.app
 
 import android.content.Context
 import com.echinese.domain.User

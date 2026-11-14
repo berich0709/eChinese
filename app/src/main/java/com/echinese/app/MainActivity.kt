@@ -8,7 +8,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import com.echinese.core.EChineseTheme
-import com.echinese.core.SessionStore
 import com.echinese.feature.auth.AuthFlow
 
 class MainActivity : ComponentActivity() {
